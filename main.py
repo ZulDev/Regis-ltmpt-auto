@@ -25,6 +25,19 @@ def task():
         print("Opening link : " + link )
         driver.get(link)
 
+        #Cek Fatal error
+        response_fatalerror = driver.find_elements(By.TAG_NAME, 'b')
+        for e in response_fatalerror:
+                print("DEBUG: " + e.text)
+                if 'Fatal error' == e.text or "Fatal error" == e.text:
+                        print("Gagal mengirim, Response Error: Fatal error")
+                        percobaan_ke = percobaan_ke + 1
+                        print("Mencoba lagi, percobaaan ke " + str(percobaan_ke) + "..")
+                        print("******************************\n")
+                        return "Fatal error"
+        #print("=======")  
+
+
         print("Mencari semua tag input..")
         # Assign input tag 
         nisn_input = driver.find_element_by_id("nisn")
@@ -45,25 +58,15 @@ def task():
         # Cek if failed
         try:
                 
-                response_fatalerror = driver.find_elements(By.TAG_NAME, 'b')
                 response_apierror = driver.find_elements(By.CLASS_NAME, 'alert-heading')
-                for e in response_fatalerror:
-                        #print(e.text)
-                        print("Gagal mengirim, Response Error: Fatal error")
-                        percobaan_ke = percobaan_ke + 1
-                        print("Mencoba lagi, percobaaan ke " + str(percobaan_ke) + "..")
-                        print("******************************\n")
-                        return e.text
-                #print("=======")
                 for e in response_apierror:
                         #print(e.text)
                         print("Gagal Mengirim, Response Error: Terjadi masalah dengan API Pusdatin Kemdikbud")
                         percobaan_ke = percobaan_ke + 1
                         print("Mencoba lagi, percobaaan ke " + str(percobaan_ke) + "..")
                         print("******************************\n")
-                        return e.text
-                #print("=======")
-
+                        return "Terjadi masalah dengan API Pusdatin Kemdikbud"
+                #print("=======")      
                 print("Berhasil Mengirim data!!!")
                 return "berhasil"
         
@@ -81,7 +84,7 @@ request = task()
 #request = request + " Test"
 
 while request == "Terjadi masalah dengan API Pusdatin Kemdikbud" or request == "Fatal error":
-        task()
+        request = task()
 
 #Berhasil register
 print("##############################################")
