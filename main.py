@@ -1,49 +1,72 @@
-#Version Chrome For 97.
 from selenium import webdriver
-
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
-
-import time
+from datetime import datetime
 
 #Global Var input
-print("Masukkan NISN: ")
+percobaan_ke = 1
+start_time = datetime.now()# Kalkulasi waktu register
+
+print("Masukkan NISN: ", end="")
 nisn      = input()
-print("Masukkan NPSN: ")
+print("Masukkan NPSN: ", end="")
 npsn      = input()
-print("Masukkan Tanggal Lahir, Contoh (26022004): ")
+print("Masukkan Tanggal Lahir, Contoh (26022004): ", end="")
 tgl_lahir = input()
 
+print("\nMemulai Register Otomatis..")
+print("******************************")
 
-def task():  
+
+
+def task():
+        global percobaan_ke
         # Buka link
         link = 'https://reg.ltmpt.ac.id/reg/siswa/'
         print("Opening link : " + link )
         driver.get(link)
 
-        print("Assign input tag..")
+        print("Mencari semua tag input..")
         # Assign input tag 
         nisn_input = driver.find_element_by_id("nisn")
         npsn_input = driver.find_element_by_id("npsn")
         tgllahir_input = driver.find_element_by_id("tgl_lahir")
 
-        print("Send keys..")
+        print("Mengisi data input..")
         # Isi nilai input nya
         nisn_input.send_keys(nisn)
         npsn_input.send_keys(npsn)
         tgllahir_input.send_keys(tgl_lahir)
 
+        print("Mencoba mengirim data..")
         #Send Form
         button = driver.find_element_by_id("btn-submit")
         button.click()
 
         # Cek if failed
-        try:                
-                cek_response = webdriver.support.wait.WebDriverWait(driver, 5)
-                cek_response.until(EC.visibility_of_element_located((By.CLASS_NAME,"alert-heading")))
-                # Failed, request back
-                print("Request back cause failed..\n\n")
+        try:
+                
+                response_fatalerror = driver.find_elements(By.TAG_NAME, 'b')
+                response_apierror = driver.find_elements(By.CLASS_NAME, 'alert-heading')
+                for e in response_fatalerror:
+                        #print(e.text)
+                        print("Gagal mengirim, Response Error: Fatal error")
+                        percobaan_ke = percobaan_ke + 1
+                        print("Mencoba lagi, percobaaan ke " + str(percobaan_ke) + "..")
+                        print("******************************\n")
+                        return e.text
+                #print("=======")
+                for e in response_apierror:
+                        #print(e.text)
+                        print("Gagal Mengirim, Response Error: Terjadi masalah dengan API Pusdatin Kemdikbud")
+                        percobaan_ke = percobaan_ke + 1
+                        print("Mencoba lagi, percobaaan ke " + str(percobaan_ke) + "..")
+                        print("******************************\n")
+                        return e.text
+                #print("=======")
+
+                print("Berhasil Mengirim data!!!")
+                return "berhasil"
+        
         finally:
                 pass
         
@@ -52,10 +75,24 @@ def task():
 
 driver = webdriver.Chrome()
 
-# Doing task
-while True:
+request = task()
+
+# For debuggin only
+#request = request + " Test"
+
+while request == "Terjadi masalah dengan API Pusdatin Kemdikbud" or request == "Fatal error":
         task()
 
-input('Tekan Apa Saja untuk exit dari Browser Chrome!')
+#Berhasil register
+print("##############################################")
+print("SELAMAT, ANDA BERHASIL MENGIRIM DATA!, Silahkan diisi data sebelum aplikasi dimatikan!")
+
+
+time_elapsed = datetime.now() - start_time 
+
+print('Waktu lama anda register selama (hh:mm:ss.ms) {}'.format(time_elapsed))
+
+input('\n\nTekan Apa Saja untuk exit dari Browser Chrome!, Pastikan udah diisi datanya!')
+input('1x Lagi Enter')
 driver.close() #Close Chrome
 driver.quit()  #Close chromedriver.exe
