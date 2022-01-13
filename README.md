@@ -7,3 +7,7 @@ Program register ltmpt 2022 automatis dibuat untuk memudahkan register ke https:
 3. Nanti masukkan NISN, NSPN, sama Tanggal Lahir nya.
 4. Nanti jika udah berhasil register nya. isi dulu data nya.
 5. Udah, sign out dan matikan programnya.
+
+# Syarat penjalanan program
+1. Ini cuman bekerja hanya di browser "chrome" aja, dan **WAJIB** versi 97,
+2. Jika ingin download chrome versi lainnya dimohon download **chromedrive.exe** nya sesuai versi browser kalian di : https://chromedriver.chromium.org/downloads dan ganti chromedrive yg ada di folder.
