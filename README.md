@@ -9,5 +9,5 @@ Program register ltmpt 2022 automatis dibuat untuk memudahkan register ke https:
 5. Udah, sign out dan matikan programnya.
 
 # Syarat penjalanan program
-1. Ini cuman bekerja hanya di browser "chrome" aja, dan **WAJIB** versi 97,
+1. Ini cuman bekerja hanya di browser "chrome" aja, dan **WAJIB** versi 97 (Settings -> About Chrome),
 2. Jika ingin download chrome versi lainnya dimohon download **chromedrive.exe** nya sesuai versi browser kalian di : https://chromedriver.chromium.org/downloads dan ganti chromedrive yg ada di folder.
