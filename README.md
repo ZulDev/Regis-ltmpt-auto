@@ -1,4 +1,4 @@
-# Regis-ltmpt-auto
+# LTMPT Register Otomatis 2022
 Program register ltmpt 2022 automatis dibuat untuk memudahkan register ke https://reg.ltmpt.ac.id/reg/siswa/ yang saat ini sedang mengalami gangguan.
 
 # Cara penggunaan
