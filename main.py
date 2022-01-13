@@ -28,7 +28,7 @@ def task():
         #Cek Fatal error
         response_fatalerror = driver.find_elements(By.TAG_NAME, 'b')
         for e in response_fatalerror:
-                print("DEBUG: " + e.text)
+                #print("DEBUG: " + e.text)
                 if 'Fatal error' == e.text or "Fatal error" == e.text:
                         print("Gagal mengirim, Response Error: Fatal error")
                         percobaan_ke = percobaan_ke + 1
