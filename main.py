@@ -87,7 +87,19 @@ request = task()
 #request = request + " Test"
 
 while request != "berhasil":
-        request = task()
+        if request == "Isian registrasi tidak sesuai":
+                print("##############################################")
+                print("Isian registrasi tidak sesuai\n")
+                print("Data isian yang Anda masukkan tidak sesuai dengan data yang tercatat di basis data Kemdikbud/Kemenag. Mohon periksa kembali isian Anda secara seksama.")
+                print("\nProses dihentikan..")
+                input('\n\nTekan Apa Saja untuk exit dari Browser Chrome..')
+                input('1x Lagi Enter')
+                driver.close() #Close Chrome
+                driver.quit()  #Close chromedriver.exe
+                exit()
+                break
+        else:
+                request = task()
 
 #Berhasil register
 print("##############################################")
