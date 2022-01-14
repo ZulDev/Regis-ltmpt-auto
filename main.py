@@ -1,10 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from datetime import datetime
+import time
 
 #Global Var input
 percobaan_ke = 1
-start_time = datetime.now()# Kalkulasi waktu register
+start_time = datetime.now() # Kalkulasi waktu register
 
 print("Masukkan NISN: ", end="")
 nisn      = input()
@@ -19,6 +20,7 @@ print("******************************")
 
 
 def task():
+        time.sleep(1)
         global percobaan_ke
         # Buka link
         link = 'https://reg.ltmpt.ac.id/reg/siswa/'
@@ -58,14 +60,15 @@ def task():
         # Cek if failed
         try:
                 
-                response_apierror = driver.find_elements(By.CLASS_NAME, 'alert-heading')
-                for e in response_apierror:
+                response_alert = driver.find_elements(By.CLASS_NAME, 'alert-heading')
+                for e in response_alert:
                         #print(e.text)
-                        print("Gagal Mengirim, Response Error: Terjadi masalah dengan API Pusdatin Kemdikbud")
+                        print("Gagal Mengirim, Response Error: " + e.text)
                         percobaan_ke = percobaan_ke + 1
                         print("Mencoba lagi, percobaaan ke " + str(percobaan_ke) + "..")
                         print("******************************\n")
-                        return "Terjadi masalah dengan API Pusdatin Kemdikbud"
+                        return e.text
+                        #return "Terjadi masalah dengan API Pusdatin Kemdikbud"
                 #print("=======")      
                 print("Berhasil Mengirim data!!!")
                 return "berhasil"
@@ -83,7 +86,7 @@ request = task()
 # For debuggin only
 #request = request + " Test"
 
-while request == "Terjadi masalah dengan API Pusdatin Kemdikbud" or request == "Fatal error":
+while request != "berhasil":
         request = task()
 
 #Berhasil register
