@@ -2,7 +2,7 @@
 Program register ltmpt 2022 automatis dibuat untuk memudahkan register ke https://reg.ltmpt.ac.id/reg/siswa/ yang saat ini sedang mengalami gangguan.
 
 # Cara penggunaan
-1. Download release program nya : https://github.com/ZulDev/Regis-ltmpt-auto/releases/tag/1.4 atau di release github.
+1. Download release program nya : https://linktr.ee/LuzDev atau di release github.
 2. buka main.exe nyaa
 3. Nanti masukkan NISN, NSPN, sama Tanggal Lahir nya.
 4. Nanti jika udah berhasil register nya. isi dulu data nya.
